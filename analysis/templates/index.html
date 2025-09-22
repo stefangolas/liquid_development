@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Class Development</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .container {
+            max-width: 1000px;
+        }
+        .suggestion-text {
+            color: #9ca3af;
+            font-style: italic;
+        }
+        .animate-pulse-fast {
+            animation: pulse-fast 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-fast {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .parameter-table {
+            display: grid;
+            grid-template-columns: 175px 1fr;
+            gap: 12px;
+            align-items: center;
+        }
+        .parameter-label {
+            text-align: right;
+            padding-right: 12px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="container mx-auto p-8 bg-white rounded-xl shadow-lg">
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">Liquid Development</h1>
+
+        <div class="mb-6">
+            <label for="liquid-class-search" class="block text-center text-sm font-medium text-gray-700 mb-2">Search Existing Liquid Classes</label>
+            <div class="relative flex justify-center">
+                <input type="text" id="liquid-class-search" placeholder="e.g., Water Free, 500ul" class="block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+                <div id="search-results" class="absolute z-10 w-1/2 mt-10 bg-white border border-gray-300 rounded-md shadow-lg hidden max-h-60 overflow-y-auto"></div>
+            </div>
+        </div>
+
+        <div class="mb-8 flex justify-center flex-col items-center">
+            <label for="new-liquid-class-name" class="block text-sm font-medium text-gray-700 mb-2">New Liquid Class Name</label>
+            <input type="text" id="new-liquid-class-name" name="new-liquid-class-name" placeholder="Enter a name for your new class" class="block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+        </div>
+
+        <form id="liquid-class-form" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-700 mb-6 text-center">Aspirate Parameters</h2>
+                <div class="parameter-table">
+                    <label for="AspirateFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Flow Rate (uL/s)</label>
+                    <input type="number" id="AspirateFlowRate" name="AspirateFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="AspirateMixFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Mix Flow Rate (uL/s)</label>
+                    <input type="number" id="AspirateMixFlowRate" name="AspirateMixFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="AspirateAirTransportVolume" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Air Transport Volume (uL)</label>
+                    <input type="number" id="AspirateAirTransportVolume" name="AspirateAirTransportVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="AspirateBlowOutVolume" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Blow Out Volume (uL)</label>
+                    <input type="number" id="AspirateBlowOutVolume" name="AspirateBlowOutVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="AspirateSwapSpeed" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Swap Speed (mm/s)</label>
+                    <input type="number" id="AspirateSwapSpeed" name="AspirateSwapSpeed" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="AspirateSettlingTime" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Settling Time (ms)</label>
+                    <input type="number" id="AspirateSettlingTime" name="AspirateSettlingTime" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="AspirateOveraspirateVolume" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Overaspirate Volume (uL)</label>
+                    <input type="number" id="AspirateOveraspirateVolume" name="AspirateOveraspirateVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="AspirateClotRetractHeight" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Clot Retract Height (mm)</label>
+                    <input type="number" id="AspirateClotRetractHeight" name="AspirateClotRetractHeight" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-semibold text-gray-700 mb-6 text-center">Dispense Parameters</h2>
+                <div class="parameter-table">
+                    <label for="DispenseFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Dispense Flow Rate (uL/s)</label>
+                    <input type="number" id="DispenseFlowRate" name="DispenseFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="DispenseMixFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Dispense Mix Flow Rate (uL/s)</label>
+                    <input type="number" id="DispenseMixFlowRate" name="DispenseMixFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="DispenseAirTransportVolume" class="parameter-label block text-sm font-medium text-gray-700">Dispense Air Transport Volume (uL)</label>
+                    <input type="number" id="DispenseAirTransportVolume" name="DispenseAirTransportVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="DispenseBlowOutVolume" class="parameter-label block text-sm font-medium text-gray-700">Dispense Blow Out Volume (uL)</label>
+                    <input type="number" id="DispenseBlowOutVolume" name="DispenseBlowOutVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="DispenseSwapSpeed" class="parameter-label block text-sm font-medium text-gray-700">Dispense Swap Speed (mm/s)</label>
+                    <input type="number" id="DispenseSwapSpeed" name="DispenseSwapSpeed" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="DispenseSettlingTime" class="parameter-label block text-sm font-medium text-gray-700">Dispense Settling Time (ms)</label>
+                    <input type="number" id="DispenseSettlingTime" name="DispenseSettlingTime" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="DispenseStopFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Dispense Stop Flow Rate (uL/s)</label>
+                    <input type="number" id="DispenseStopFlowRate" name="DispenseStopFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="DispenseStopBackVolume" class="parameter-label block text-sm font-medium text-gray-700">Dispense Stop Back Volume (uL)</label>
+                    <input type="number" id="DispenseStopBackVolume" name="DispenseStopBackVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    
+                    <label for="DispenseMode" class="parameter-label block text-sm font-medium text-gray-700">Dispense Mode (Mode #)</label>
+                    <select id="DispenseMode" name="DispenseMode" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border bg-white">
+                        <option value="" disabled selected>Select a mode...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('liquid-class-form');
+        const inputFields = form.querySelectorAll('.input-field');
+        const newLiquidClassNameInput = document.getElementById('new-liquid-class-name');
+        const numFields = inputFields.length;
+        const threshold = Math.ceil(numFields / 2);
+        let timeoutId = null;
+
+        const searchInput = document.getElementById('liquid-class-search');
+        const searchResultsContainer = document.getElementById('search-results');
+        let searchTimeoutId = null;
+
+        // A mapping to convert HTML form names to backend data keys.
+        const paramMap = {
+            'AspirateFlowRate': 'AsFlowRate',
+            'AspirateMixFlowRate': 'AsMixFlowRate',
+            'AspirateAirTransportVolume': 'AsAirTransportVolume',
+            'AspirateBlowOutVolume': 'AsBlowOutVolume',
+            'AspirateSwapSpeed': 'AsSwapSpeed',
+            'AspirateSettlingTime': 'AsSettlingTime',
+            'AspirateOveraspirateVolume': 'AsOverAspirateVolume',
+            'AspirateClotRetractHeight': 'AsClotRetractHeight',
+            'DispenseFlowRate': 'DsFlowRate',
+            'DispenseMixFlowRate': 'DsMixFlowRate',
+            'DispenseAirTransportVolume': 'DsAirTransportVolume',
+            'DispenseBlowOutVolume': 'DsBlowOutVolume',
+            'DispenseSwapSpeed': 'DsSwapSpeed',
+            'DispenseSettlingTime': 'DsSettlingTime',
+            'DispenseStopFlowRate': 'DsStopFlowRate',
+            'DispenseStopBackVolume': 'DsStopBackVolume',
+            'DispenseMode': 'DispenseMode'
+        };
+
+        // --- Event Listeners for Liquid Class Search ---
+        searchInput.addEventListener('input', () => {
+            clearTimeout(searchTimeoutId);
+            const query = searchInput.value;
+            if (query.length > 2) {
+                searchTimeoutId = setTimeout(() => fetchSearchResults(query), 300);
+            } else {
+                searchResultsContainer.innerHTML = '';
+                searchResultsContainer.classList.add('hidden');
+            }
+        });
+
+        // Hide search results when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!searchResultsContainer.contains(event.target) && event.target !== searchInput) {
+                searchResultsContainer.classList.add('hidden');
+            }
+        });
+
+        // --- Functions for Liquid Class Search ---
+        async function fetchSearchResults(query) {
+            try {
+                const response = await fetch(`/search_liquid_classes?q=${encodeURIComponent(query)}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const matches = await response.json();
+                displaySearchResults(matches);
+            } catch (error) {
+                console.error('Search failed:', error);
+                searchResultsContainer.innerHTML = `<p class="p-2 text-sm text-red-500">Failed to load results.</p>`;
+                searchResultsContainer.classList.remove('hidden');
+            }
+        }
+
+        function displaySearchResults(matches) {
+            searchResultsContainer.innerHTML = '';
+            if (matches.length > 0) {
+                matches.forEach(match => {
+                    const item = document.createElement('div');
+                    item.className = 'p-2 cursor-pointer hover:bg-gray-200 transition-colors duration-150 ease-in-out';
+                    item.textContent = match.name;
+                    item.addEventListener('click', () => {
+                        fillFormWithData(match.data);
+                        // Populate the search input with the selected name
+                        searchInput.value = match.name;
+                        searchResultsContainer.classList.add('hidden');
+                    });
+                    searchResultsContainer.appendChild(item);
+                });
+                searchResultsContainer.classList.remove('hidden');
+            } else {
+                searchResultsContainer.innerHTML = `<p class="p-2 text-sm text-gray-500">No matching liquid classes found.</p>`;
+                searchResultsContainer.classList.remove('hidden');
+            }
+        }
+
+        function fillFormWithData(data) {
+            inputFields.forEach(input => {
+                const paramName = input.name;
+                const dataKey = paramMap[paramName];
+                const value = data[dataKey];
+                if (value !== undefined && value !== null) {
+                    if (input.tagName === 'SELECT') {
+                        input.value = value.toString();
+                    } else {
+                        input.value = value.toFixed(2);
+                    }
+                    // Remove any previous suggestion styling
+                    input.classList.remove('suggestion-text');
+                } else {
+                    // Clear fields that are not in the selected liquid class data
+                    input.value = '';
+                }
+            });
+            // Force a prediction after filling the form
+            handleInput();
+        }
+
+        // --- Original Event Listeners for Parameter Prediction ---
+        inputFields.forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.classList.contains('suggestion-text')) {
+                    input.classList.remove('suggestion-text');
+                }
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(handleInput, 500); // Debounce for 500ms
+            });
+
+            input.addEventListener('keydown', (event) => {
+                if (event.key === 'Tab' && input.classList.contains('suggestion-text')) {
+                    input.classList.remove('suggestion-text');
+                }
+            });
+        });
+
+        async function handleInput() {
+            const filledFields = Array.from(inputFields).filter(input => {
+                return input.value.trim() !== '';
+            });
+
+            if (filledFields.length >= threshold) {
+                const formData = {};
+                filledFields.forEach(input => {
+                    formData[input.name] = parseFloat(input.value);
+                });
+
+                try {
+                    inputFields.forEach(input => {
+                        const isEmpty = input.value.trim() === '';
+                        if (isEmpty) {
+                            input.classList.add('animate-pulse-fast');
+                        }
+                    });
+
+                    const response = await fetch('/predict', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const predictions = await response.json();
+                    
+                    inputFields.forEach(input => {
+                        input.classList.remove('animate-pulse-fast');
+                        const isValueEmpty = input.value.trim() === '';
+                        if (isValueEmpty && predictions[input.name] !== undefined && predictions[input.name] !== null) {
+                            if (input.name === 'DispenseMode') {
+                                input.value = predictions[input.name].toString();
+                            } else {
+                                input.value = predictions[input.name].toFixed(2);
+                            }
+                            input.classList.add('suggestion-text');
+                        }
+                    });
+
+                } catch (error) {
+                    console.error('Prediction failed:', error);
+                    inputFields.forEach(input => input.classList.remove('animate-pulse-fast'));
+                }
+            }
+        }
+    </script>
+</body>
+</html>
