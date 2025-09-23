@@ -34,11 +34,30 @@
             text-align: right;
             padding-right: 12px;
         }
+        .tab-button.active {
+            background-color: #e5e7eb;
+            border-bottom: 2px solid #3b82f6;
+            color: #1f2937;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .correction-table th, .correction-table td {
+            padding: 8px;
+            border: 1px solid #d1d5db;
+        }
+        .correction-table th {
+            background-color: #f3f4f6;
+            text-align: left;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
     <div class="container mx-auto p-8 bg-white rounded-xl shadow-lg">
-        <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">Liquid Development</h1>
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">Liquid Class Development</h1>
 
         <div class="mb-6">
             <label for="liquid-class-search" class="block text-center text-sm font-medium text-gray-700 mb-2">Search Existing Liquid Classes</label>
@@ -53,75 +72,110 @@
             <input type="text" id="new-liquid-class-name" name="new-liquid-class-name" placeholder="Enter a name for your new class" class="block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
         </div>
 
-        <form id="liquid-class-form" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div>
-                <h2 class="text-xl font-semibold text-gray-700 mb-6 text-center">Aspirate Parameters</h2>
-                <div class="parameter-table">
-                    <label for="AspirateFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Flow Rate (uL/s)</label>
-                    <input type="number" id="AspirateFlowRate" name="AspirateFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="AspirateMixFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Mix Flow Rate (uL/s)</label>
-                    <input type="number" id="AspirateMixFlowRate" name="AspirateMixFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="AspirateAirTransportVolume" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Air Transport Volume (uL)</label>
-                    <input type="number" id="AspirateAirTransportVolume" name="AspirateAirTransportVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="AspirateBlowOutVolume" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Blow Out Volume (uL)</label>
-                    <input type="number" id="AspirateBlowOutVolume" name="AspirateBlowOutVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="AspirateSwapSpeed" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Swap Speed (mm/s)</label>
-                    <input type="number" id="AspirateSwapSpeed" name="AspirateSwapSpeed" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="AspirateSettlingTime" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Settling Time (ms)</label>
-                    <input type="number" id="AspirateSettlingTime" name="AspirateSettlingTime" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="AspirateOveraspirateVolume" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Overaspirate Volume (uL)</label>
-                    <input type="number" id="AspirateOveraspirateVolume" name="AspirateOveraspirateVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="AspirateClotRetractHeight" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Clot Retract Height (mm)</label>
-                    <input type="number" id="AspirateClotRetractHeight" name="AspirateClotRetractHeight" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                </div>
-            </div>
+        <div class="flex border-b border-gray-200 mb-6">
+            <button class="tab-button px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors duration-200 ease-in-out active" data-tab="liquid-class-tab">Liquid Class & Tip</button>
+            <button class="tab-button px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors duration-200 ease-in-out" data-tab="correction-curve-tab">Correction Curve</button>
+        </div>
 
-            <div>
-                <h2 class="text-xl font-semibold text-gray-700 mb-6 text-center">Dispense Parameters</h2>
-                <div class="parameter-table">
-                    <label for="DispenseFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Dispense Flow Rate (uL/s)</label>
-                    <input type="number" id="DispenseFlowRate" name="DispenseFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="DispenseMixFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Dispense Mix Flow Rate (uL/s)</label>
-                    <input type="number" id="DispenseMixFlowRate" name="DispenseMixFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="DispenseAirTransportVolume" class="parameter-label block text-sm font-medium text-gray-700">Dispense Air Transport Volume (uL)</label>
-                    <input type="number" id="DispenseAirTransportVolume" name="DispenseAirTransportVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="DispenseBlowOutVolume" class="parameter-label block text-sm font-medium text-gray-700">Dispense Blow Out Volume (uL)</label>
-                    <input type="number" id="DispenseBlowOutVolume" name="DispenseBlowOutVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="DispenseSwapSpeed" class="parameter-label block text-sm font-medium text-gray-700">Dispense Swap Speed (mm/s)</label>
-                    <input type="number" id="DispenseSwapSpeed" name="DispenseSwapSpeed" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="DispenseSettlingTime" class="parameter-label block text-sm font-medium text-gray-700">Dispense Settling Time (ms)</label>
-                    <input type="number" id="DispenseSettlingTime" name="DispenseSettlingTime" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="DispenseStopFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Dispense Stop Flow Rate (uL/s)</label>
-                    <input type="number" id="DispenseStopFlowRate" name="DispenseStopFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="DispenseStopBackVolume" class="parameter-label block text-sm font-medium text-gray-700">Dispense Stop Back Volume (uL)</label>
-                    <input type="number" id="DispenseStopBackVolume" name="DispenseStopBackVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
-                    
-                    <label for="DispenseMode" class="parameter-label block text-sm font-medium text-gray-700">Dispense Mode (Mode #)</label>
-                    <select id="DispenseMode" name="DispenseMode" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border bg-white">
-                        <option value="" disabled selected>Select a mode...</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
+        <div id="liquid-class-tab" class="tab-content active">
+            <form id="liquid-class-form" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-700 mb-6 text-center">Aspirate Parameters</h2>
+                    <div class="parameter-table">
+                        <label for="AsFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Flow Rate (uL/s)</label>
+                        <input type="number" id="AsFlowRate" name="AsFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="AsMixFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Mix Flow Rate (uL/s)</label>
+                        <input type="number" id="AsMixFlowRate" name="AsMixFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="AsAirTransportVolume" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Air Transport Volume (uL)</label>
+                        <input type="number" id="AsAirTransportVolume" name="AsAirTransportVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="AsBlowOutVolume" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Blow Out Volume (uL)</label>
+                        <input type="number" id="AsBlowOutVolume" name="AsBlowOutVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="AsSwapSpeed" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Swap Speed (mm/s)</label>
+                        <input type="number" id="AsSwapSpeed" name="AsSwapSpeed" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="AsSettlingTime" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Settling Time (ms)</label>
+                        <input type="number" id="AsSettlingTime" name="AsSettlingTime" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="AsOverAspirateVolume" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Overaspirate Volume (uL)</label>
+                        <input type="number" id="AsOverAspirateVolume" name="AsOverAspirateVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="AsClotRetractHeight" class="parameter-label block text-sm font-medium text-gray-700">Aspirate Clot Retract Height (mm)</label>
+                        <input type="number" id="AsClotRetractHeight" name="AsClotRetractHeight" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                    </div>
                 </div>
+
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-700 mb-6 text-center">Dispense & Tip Parameters</h2>
+                    <div class="parameter-table">
+                        <label for="DsFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Dispense Flow Rate (uL/s)</label>
+                        <input type="number" id="DsFlowRate" name="DsFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="DsMixFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Dispense Mix Flow Rate (uL/s)</label>
+                        <input type="number" id="DsMixFlowRate" name="DsMixFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="DsAirTransportVolume" class="parameter-label block text-sm font-medium text-gray-700">Dispense Air Transport Volume (uL)</label>
+                        <input type="number" id="DsAirTransportVolume" name="DsAirTransportVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="DsBlowOutVolume" class="parameter-label block text-sm font-medium text-gray-700">Dispense Blow Out Volume (uL)</label>
+                        <input type="number" id="DsBlowOutVolume" name="DsBlowOutVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="DsSwapSpeed" class="parameter-label block text-sm font-medium text-gray-700">Dispense Swap Speed (mm/s)</label>
+                        <input type="number" id="DsSwapSpeed" name="DsSwapSpeed" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="DsSettlingTime" class="parameter-label block text-sm font-medium text-gray-700">Dispense Settling Time (ms)</label>
+                        <input type="number" id="DsSettlingTime" name="DsSettlingTime" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="DsStopFlowRate" class="parameter-label block text-sm font-medium text-gray-700">Dispense Stop Flow Rate (uL/s)</label>
+                        <input type="number" id="DsStopFlowRate" name="DsStopFlowRate" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="DsStopBackVolume" class="parameter-label block text-sm font-medium text-gray-700">Dispense Stop Back Volume (uL)</label>
+                        <input type="number" id="DsStopBackVolume" name="DsStopBackVolume" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border">
+                        
+                        <label for="DispenseMode" class="parameter-label block text-sm font-medium text-gray-700">Dispense Mode (Mode #)</label>
+                        <select id="DispenseMode" name="DispenseMode" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border bg-white">
+                            <option value="" disabled selected>Select a mode...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+
+                        <label for="TipType" class="parameter-label block text-sm font-medium text-gray-700">Tip Type</label>
+                        <select id="TipType" name="TipType" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border bg-white">
+                            <option value="" disabled selected>Select tip type...</option>
+                            <option value="1">Standard Volume</option>
+                            <option value="2">Low Volume</option>
+                            <option value="3">Filter</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="correction-curve-tab" class="tab-content">
+            <h2 class="text-xl font-semibold text-gray-700 mb-6 text-center">Correction Curve</h2>
+            <div class="flex justify-center mb-4">
+                <button id="add-row-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">Add Row</button>
             </div>
-        </form>
+            <div class="overflow-x-auto">
+                <table id="correction-table" class="min-w-full bg-white rounded-lg shadow-md correction-table">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4">Nominal Value (uL)</th>
+                            <th class="py-2 px-4">Corrected Value (uL)</th>
+                            <th class="py-2 px-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -136,25 +190,90 @@
         const searchResultsContainer = document.getElementById('search-results');
         let searchTimeoutId = null;
 
-        // A mapping to convert HTML form names to backend data keys.
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.dataset.tab;
+
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                button.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // Correction curve table functionality
+        const addRowBtn = document.getElementById('add-row-btn');
+        const correctionTableBody = document.querySelector('#correction-table tbody');
+
+        addRowBtn.addEventListener('click', () => {
+            addRowToTable();
+        });
+
+        correctionTableBody.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-row-btn')) {
+                e.target.closest('tr').remove();
+            }
+        });
+
+        function addRowToTable(nominal = '', corrected = '') {
+            const newRow = document.createElement('tr');
+            // Change the input width to w-1/2
+            newRow.innerHTML = `
+                <td class="py-2 px-4"><input type="number" class="w-1/2 p-1 border rounded" placeholder="Nominal" value="${nominal}"></td>
+                <td class="py-2 px-4"><input type="number" class="w-1/2 p-1 border rounded" placeholder="Corrected" value="${corrected}"></td>
+                <td class="py-2 px-4 text-center">
+                    <button type="button" class="remove-row-btn text-red-500 hover:text-red-700 font-bold">Remove</button>
+                </td>
+            `;
+            correctionTableBody.appendChild(newRow);
+        }
+
+        function populateCorrectionTable(curveData) {
+            correctionTableBody.innerHTML = ''; // Clear existing rows
+            for (const [nominal, corrected] of curveData) {
+                addRowToTable(nominal, corrected);
+            }
+        }
+
+        // The core change is here: A function to parse and sort the correction curve.
+        function parseAndSortCorrectionCurve(unpackedData) {
+            if (!unpackedData) return [];
+            
+            const pairs = [];
+            for (let i = 0; i < unpackedData.length; i += 2) {
+                pairs.push([unpackedData[i], unpackedData[i + 1]]);
+            }
+
+            // Sort the pairs by their nominal value (the first element)
+            pairs.sort((a, b) => a[0] - b[0]);
+            
+            return pairs;
+        }
+
         const paramMap = {
-            'AspirateFlowRate': 'AsFlowRate',
-            'AspirateMixFlowRate': 'AsMixFlowRate',
-            'AspirateAirTransportVolume': 'AsAirTransportVolume',
-            'AspirateBlowOutVolume': 'AsBlowOutVolume',
-            'AspirateSwapSpeed': 'AsSwapSpeed',
-            'AspirateSettlingTime': 'AsSettlingTime',
-            'AspirateOveraspirateVolume': 'AsOverAspirateVolume',
-            'AspirateClotRetractHeight': 'AsClotRetractHeight',
-            'DispenseFlowRate': 'DsFlowRate',
-            'DispenseMixFlowRate': 'DsMixFlowRate',
-            'DispenseAirTransportVolume': 'DsAirTransportVolume',
-            'DispenseBlowOutVolume': 'DsBlowOutVolume',
-            'DispenseSwapSpeed': 'DsSwapSpeed',
-            'DispenseSettlingTime': 'DsSettlingTime',
-            'DispenseStopFlowRate': 'DsStopFlowRate',
-            'DispenseStopBackVolume': 'DsStopBackVolume',
-            'DispenseMode': 'DispenseMode'
+            'AsFlowRate': 'AsFlowRate',
+            'AsMixFlowRate': 'AsMixFlowRate',
+            'AsAirTransportVolume': 'AsAirTransportVolume',
+            'AsBlowOutVolume': 'AsBlowOutVolume',
+            'AsSwapSpeed': 'AsSwapSpeed',
+            'AsSettlingTime': 'AsSettlingTime',
+            'AsOverAspirateVolume': 'AsOverAspirateVolume',
+            'AsClotRetractHeight': 'AsClotRetractHeight',
+            'DsFlowRate': 'DsFlowRate',
+            'DsMixFlowRate': 'DsMixFlowRate',
+            'DsAirTransportVolume': 'DsAirTransportVolume',
+            'DsBlowOutVolume': 'DsBlowOutVolume',
+            'DsSwapSpeed': 'DsSwapSpeed',
+            'DsSettlingTime': 'DsSettlingTime',
+            'DsStopFlowRate': 'DsStopFlowRate',
+            'DsStopBackVolume': 'DsStopBackVolume',
+            'DispenseMode': 'DispenseMode',
+            'TipType': 'TipType'
         };
 
         // --- Event Listeners for Liquid Class Search ---
@@ -199,9 +318,10 @@
                     const item = document.createElement('div');
                     item.className = 'p-2 cursor-pointer hover:bg-gray-200 transition-colors duration-150 ease-in-out';
                     item.textContent = match.name;
-                    item.addEventListener('click', () => {
-                        fillFormWithData(match.data);
-                        // Populate the search input with the selected name
+                    item.addEventListener('click', async () => {
+                        // Fetch the full liquid class data, including correction curve
+                        const fullData = await fetchLiquidClass(match.name);
+                        fillFormWithData(fullData);
                         searchInput.value = match.name;
                         searchResultsContainer.classList.add('hidden');
                     });
@@ -214,7 +334,22 @@
             }
         }
 
+        async function fetchLiquidClass(className) {
+            try {
+                const response = await fetch(`/get_liquid_class/${encodeURIComponent(className)}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Failed to fetch liquid class details:', error);
+                return {};
+            }
+        }
+        
         function fillFormWithData(data) {
+            // First, populate the standard liquid class parameters
             inputFields.forEach(input => {
                 const paramName = input.name;
                 const dataKey = paramMap[paramName];
@@ -225,13 +360,21 @@
                     } else {
                         input.value = value.toFixed(2);
                     }
-                    // Remove any previous suggestion styling
                     input.classList.remove('suggestion-text');
                 } else {
-                    // Clear fields that are not in the selected liquid class data
                     input.value = '';
                 }
             });
+
+            // Then, populate the correction curve table, now with sorting on the client side
+            const correctionCurveData = data['CorrectionCurve'];
+            if (correctionCurveData) {
+                const sortedCurve = parseAndSortCorrectionCurve(correctionCurveData);
+                populateCorrectionTable(sortedCurve);
+            } else {
+                populateCorrectionTable([]); // Clear the table if no data
+            }
+
             // Force a prediction after filling the form
             handleInput();
         }
@@ -290,7 +433,7 @@
                         input.classList.remove('animate-pulse-fast');
                         const isValueEmpty = input.value.trim() === '';
                         if (isValueEmpty && predictions[input.name] !== undefined && predictions[input.name] !== null) {
-                            if (input.name === 'DispenseMode') {
+                            if (input.name === 'DispenseMode' || input.name === 'TipType') {
                                 input.value = predictions[input.name].toString();
                             } else {
                                 input.value = predictions[input.name].toFixed(2);
