@@ -149,14 +149,9 @@
                         <label for="TipType" class="parameter-label block text-sm font-medium text-gray-700">Tip Type</label>
                         <select id="TipType" name="TipType" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border bg-white">
                             <option value="" disabled selected>Select tip type...</option>
-                            <option value='{"volume": 10, "has_filter": false}'>10 µL</option>
-                            <option value='{"volume": 10, "has_filter": true}'>10 µL Filtered</option>
-                            <option value='{"volume": 50, "has_filter": false}'>50 µL</option>
-                            <option value='{"volume": 50, "has_filter": true}'>50 µL Filtered</option>
-                            <option value='{"volume": 300, "has_filter": false}'>300 µL</option>
-                            <option value='{"volume": 300, "has_filter": true}'>300 µL Filtered</option>
-                            <option value='{"volume": 1000, "has_filter": false}'>1000 µL</option>
-                            <option value='{"volume": 1000, "has_filter": true}'>1000 µL Filtered</option>
+                            <option value="1">Standard Volume</option>
+                            <option value="2">Low Volume</option>
+                            <option value="3">Filter</option>
                         </select>
                     </div>
                 </div>
@@ -191,10 +186,6 @@
                     <input type="number" id="test-volume" name="test-volume" class="input-field p-2 border rounded-md" placeholder="Enter volume">
                 </div>
                 <div class="flex flex-col space-y-2">
-                    <label for="test-source" class="font-medium text-gray-700">Source</label>
-                    <input type="text" id="test-source" name="test-source" class="input-field p-2 border rounded-md" placeholder="e.g., source_well_A1">
-                </div>
-                <div class="flex flex-col space-y-2">
                     <label for="test-liquid-class" class="font-medium text-gray-700">Liquid Class</label>
                     <input type="text" id="test-liquid-class" name="test-liquid-class" class="input-field p-2 border rounded-md" placeholder="e.g., Water Free, 500ul">
                 </div>
@@ -206,9 +197,6 @@
                     <p id="output-message" class="text-sm"></p>
                 </div>
             </div>
-        </div>
-        <div class="flex justify-center mt-8">
-            <button id="save-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">Save to JSON</button>
         </div>
     </div>
 
@@ -287,25 +275,24 @@
         }
 
         const paramMap = {
-            'AsFlowRate': 'aspirate.FLOW_RATE',
-            'AsMixFlowRate': 'aspirate.MIX_FLOW_RATE',
-            'AsAirTransportVolume': 'aspirate.AIR_TRANSPORT_VOLUME',
-            'AsBlowOutVolume': 'aspirate.BLOW_OUT_VOLUME',
-            'AsSwapSpeed': 'aspirate.SWAP_SPEED',
-            'AsSettlingTime': 'aspirate.SETTLING_TIME',
-            'AsOverAspirateVolume': 'aspirate.OVER_ASPIRATE_VOLUME',
-            'AsClotRetractHeight': 'aspirate.CLOT_RETRACT_HEIGHT',
-            'DsFlowRate': 'dispense.FLOW_RATE',
-            'DsMixFlowRate': 'dispense.MIX_FLOW_RATE',
-            'DsAirTransportVolume': 'dispense.AIR_TRANSPORT_VOLUME',
-            'DsBlowOutVolume': 'dispense.BLOW_OUT_VOLUME',
-            'DsSwapSpeed': 'dispense.SWAP_SPEED',
-            'DsSettlingTime': 'dispense.SETTLING_TIME',
-            'DsStopFlowRate': 'dispense.STOP_FLOW_RATE',
-            'DsStopBackVolume': 'dispense.STOP_BACK_VOLUME',
-            'DispenseMode': 'dispense_mode',
-            'TipType': 'tip_type',
-            'CorrectionCurve': 'correction_curve'
+            'AsFlowRate': 'AsFlowRate',
+            'AsMixFlowRate': 'AsMixFlowRate',
+            'AsAirTransportVolume': 'AsAirTransportVolume',
+            'AsBlowOutVolume': 'AsBlowOutVolume',
+            'AsSwapSpeed': 'AsSwapSpeed',
+            'AsSettlingTime': 'AsSettlingTime',
+            'AsOverAspirateVolume': 'AsOverAspirateVolume',
+            'AsClotRetractHeight': 'AsClotRetractHeight',
+            'DsFlowRate': 'DsFlowRate',
+            'DsMixFlowRate': 'DsMixFlowRate',
+            'DsAirTransportVolume': 'DsAirTransportVolume',
+            'DsBlowOutVolume': 'DsBlowOutVolume',
+            'DsSwapSpeed': 'DsSwapSpeed',
+            'DsSettlingTime': 'DsSettlingTime',
+            'DsStopFlowRate': 'DsStopFlowRate',
+            'DsStopBackVolume': 'DsStopBackVolume',
+            'DispenseMode': 'DispenseMode',
+            'TipType': 'TipType'
         };
 
         // --- Event Listeners for Liquid Class Search ---
@@ -382,54 +369,28 @@
         function fillFormWithData(data) {
             inputFields.forEach(input => {
                 const paramName = input.name;
-                const dataPath = paramMap[paramName];
-                let value;
-                
-                if (dataPath.includes('.')) {
-                    const pathParts = dataPath.split('.');
-                    let current = data;
-                    for (const part of pathParts) {
-                        current = current ? current[part] : undefined;
-                    }
-                    value = current;
-                } else {
-                    value = data[dataPath];
-                }
-
-                if (paramName === 'TipType') {
-                    if (value && typeof value === 'object') {
-                        input.value = `{"volume": ${value.volume}, "has_filter": ${value.has_filter}}`.replace(/"/g, "'");
-                    } else {
-                        input.value = '';
-                    }
-                } else if (paramName === 'DispenseMode') {
-                     if (value !== undefined && value !== null) {
+                const dataKey = paramMap[paramName];
+                const value = data[dataKey];
+                if (value !== undefined && value !== null) {
+                    if (input.tagName === 'SELECT') {
                         input.value = value.toString();
                     } else {
-                        input.value = '';
+                        input.value = value.toFixed(2);
                     }
+                    input.classList.remove('suggestion-text');
                 } else {
-                    if (value !== undefined && value !== null) {
-                        if (input.tagName === 'SELECT') {
-                            input.value = value.toString();
-                        } else {
-                            input.value = value.toFixed(2);
-                        }
-                    } else {
-                        input.value = '';
-                    }
+                    input.value = '';
                 }
-                input.classList.remove('suggestion-text');
             });
 
-            const correctionCurveData = data['correction_curve'];
-            if (correctionCurveData && correctionCurveData.nominal && correctionCurveData.corrected) {
-                const curvePairs = correctionCurveData.nominal.map((nominal, index) => [nominal, correctionCurveData.corrected[index]]);
-                populateCorrectionTable(curvePairs);
+            const correctionCurveData = data['CorrectionCurve'];
+            if (correctionCurveData) {
+                const sortedCurve = parseAndSortCorrectionCurve(correctionCurveData);
+                populateCorrectionTable(sortedCurve);
             } else {
                 populateCorrectionTable([]);
             }
-            
+
             handleInput();
         }
 
@@ -467,7 +428,6 @@
         const initializeBtn = document.getElementById('initialize-btn');
         const pipetteBtn = document.getElementById('pipette-btn');
         const testVolumeInput = document.getElementById('test-volume');
-        const testSourceInput = document.getElementById('test-source');
         const testLiquidClassInput = document.getElementById('test-liquid-class');
         const outputMessage = document.getElementById('output-message');
 
@@ -475,7 +435,7 @@
         initializeBtn.addEventListener('click', async () => {
             outputMessage.textContent = 'Initializing... Please wait.';
             try {
-                const response = await fetch('/initialize', {
+                const response = await fetch('/initialize_hamilton', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -494,11 +454,10 @@
         // Event listener for Pipette & Record button
         pipetteBtn.addEventListener('click', async () => {
             const volume = parseFloat(testVolumeInput.value);
-            const source = testSourceInput.value.trim();
             const liquidClass = testLiquidClassInput.value.trim();
 
-            if (isNaN(volume) || !source || !liquidClass) {
-                outputMessage.textContent = 'Please fill in all fields (Volume, Source, and Liquid Class) before pipetting.';
+            if (isNaN(volume) || !liquidClass) {
+                outputMessage.textContent = 'Please fill in all fields (Volume and Liquid Class) before pipetting.';
                 return;
             }
 
@@ -511,7 +470,6 @@
                     },
                     body: JSON.stringify({
                         volume: volume,
-                        source: source,
                         liquid_class: liquidClass
                     })
                 });
@@ -526,69 +484,6 @@
                 console.error('Pipette & Record failed:', error);
                 outputMessage.textContent = `Pipette & Record failed: ${error.message}`;
             }
-        });
-
-        // Save to JSON button logic
-        const saveBtn = document.getElementById('save-btn');
-        saveBtn.addEventListener('click', () => {
-            const newLiquidClassName = newLiquidClassNameInput.value.trim();
-            if (!newLiquidClassName) {
-                alert("Please enter a name for the new liquid class before saving.");
-                return;
-            }
-
-            const aspirateParams = {};
-            const dispenseParams = {};
-            
-            inputFields.forEach(input => {
-                if (input.id.startsWith('As') && input.value) {
-                    aspirateParams[input.id.substring(2).toUpperCase()] = parseFloat(input.value);
-                } else if (input.id.startsWith('Ds') && input.value) {
-                    dispenseParams[input.id.substring(2).toUpperCase()] = parseFloat(input.value);
-                }
-            });
-
-            // Handle special cases: TipType and DispenseMode
-            const tipTypeSelect = document.getElementById('TipType');
-            const dispenseModeSelect = document.getElementById('DispenseMode');
-            const tipTypeData = tipTypeSelect.value ? JSON.parse(tipTypeSelect.value.replace(/'/g, '"')) : null;
-            const dispenseModeData = dispenseModeSelect.options[dispenseModeSelect.selectedIndex].text;
-
-            // Get correction curve data
-            const correctionRows = correctionTableBody.querySelectorAll('tr');
-            const nominalValues = [];
-            const correctedValues = [];
-
-            correctionRows.forEach(row => {
-                const inputs = row.querySelectorAll('input[type="number"]');
-                if (inputs[0].value && inputs[1].value) {
-                    nominalValues.push(parseFloat(inputs[0].value));
-                    correctedValues.push(parseFloat(inputs[1].value));
-                }
-            });
-
-            const liquidClassData = {
-                "name": newLiquidClassName,
-                "aspirate": aspirateParams,
-                "dispense": dispenseParams,
-                "tip_type": tipTypeData,
-                "dispense_mode": dispenseModeData,
-                "correction_curve": {
-                    "nominal": nominalValues,
-                    "corrected": correctedValues
-                }
-            };
-            
-            const jsonString = JSON.stringify([liquidClassData], null, 4);
-            const blob = new Blob([jsonString], { type: "application/json" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${newLiquidClassName.replace(/[^a-zA-Z0-9]/g, '_')}_liquid_class.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
         });
     </script>
 </body>

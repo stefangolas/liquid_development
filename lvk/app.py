@@ -10,7 +10,9 @@ from importlib import util
 from pyhamilton.defaults import defaults
 from pyhamilton.liquid_class_db import get_liquid_class_parameter, create_correction_curve, unpack_doubles_dynamic
 
-from lvk_script import initialize, pipette_and_record
+from lvk_script import LVKController
+
+LVK_ROBOT = LVKController('LVK_Deck.lay', 'COM4', simulating=False)
 
 # A dictionary to hold our trained XGBoost models. We will load them once at startup.
 MODELS = None
@@ -255,29 +257,60 @@ def save_liquid_class():
 
 @app.route('/initialize_hamilton', methods=['POST'])
 def initialize_hamilton():
-    initialize()
-
-    return jsonify({'status': 'success', 'message': 'Hamilton initialized successfully.'}), 200
+    """
+    Initializes the connection to the Hamilton robot using the LVKController.
+    """
+    # Assuming LVK_ROBOT is a global instance of LVKController
+    if LVK_ROBOT is None:
+        return jsonify({'status': 'error', 'message': 'LVKController not initialized'}), 500
+        
+    try:
+        LVK_ROBOT.connect()
+        return jsonify({'status': 'success', 'message': 'Hamilton initialized successfully.'}), 200
+    except ConnectionError as e:
+        # Catch the specific error raised by LVKController.connect() for a clean message
+        return jsonify({'status': 'error', 'message': f'Connection Error: {e}'}), 500
+    except Exception as e:
+        print(f"Error during Hamilton initialization: {e}")
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @app.route('/pipette_and_record', methods=['POST'])
 def pipette_and_record_endpoint():
+    """
+    Performs a pipetting and weighing cycle using the LVKController.
+    """
+    # Assuming LVK_ROBOT is a global instance of LVKController
+    if LVK_ROBOT is None:
+        return jsonify({'status': 'error', 'message': 'LVKController not initialized'}), 500
+
     data = request.json
     volume = data.get('volume')
-    source = data.get('source')
     liquid_class = data.get('liquid_class')
 
-    if volume is None or source is None or liquid_class is None:
-        return jsonify({'error': 'Missing required parameters: volume, source, liquid_class'}), 400
+    if volume is None or liquid_class is None:
+        return jsonify({'error': 'Missing required parameters: volume, liquid_class'}), 400
 
     try:
-        weight = pipette_and_record(volume, source, liquid_class)
+        # Ensure volume is a number
+        volume = float(volume)
+        
+        # Use the LVKController's pipette_and_weigh method
+        weight = LVK_ROBOT.pipette_and_weigh(volume, liquid_class)
+        
         if weight is None:
-            return jsonify({'error': 'Failed to get weight from scale'}), 500
+            return jsonify({'error': 'Failed to get weight from scale (Weight is None)'}), 500
 
-        return jsonify({'status': 'success', 'weight': weight}), 200
+        # Include volume and liquid class in the response for clarity
+        return jsonify({'status': 'success', 'weight': weight, 'volume': volume, 'liquid_class': liquid_class}), 200
+    except ConnectionError as e:
+        # Indicate if the robot wasn't connected/initialized
+        return jsonify({'status': 'error', 'message': f'Connection Error: {e}. Is the Hamilton initialized?'}), 500
+    except ValueError:
+        return jsonify({'error': 'Invalid volume: Must be a number'}), 400
     except Exception as e:
         print(f"Error during pipetting and recording: {e}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
+
 
 
 if __name__ == '__main__':
