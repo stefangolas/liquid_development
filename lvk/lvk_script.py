@@ -1,10 +1,13 @@
 # Assuming these imports are necessary from your project's environment
 from pyhamilton import (HamiltonInterface, LayoutManager,
                         layout_item, ReagentTrackedBulkPlate,
-                        Tip96, TrackedTips, LVKBalanceVial,
-                        create_liquid_class_from_json)
+                        Tip96, TrackedTips, LVKBalanceVial, normal_logging,
+                        create_liquid_class_from_json, create_liquid_class_from_dict)
 from pyhamilton.pipetting import pip_transfer
 from mettler_toledo import MettlerWXS
+import os
+import time
+
 
 class LVKController:
     """
@@ -62,24 +65,15 @@ class LVKController:
             ham_int.stop()
             print("Hamilton robot connection stopped successfully.")
 
-    def import_liquid_classes_from_file(self, json_file_path):
-        """
-        Applies liquid classes from a specified JSON file.
-
-        Args:
-            json_file_path (str): The path to the liquid class JSON file.
-        """
-
-        print(f"Importing liquid classes from {json_file_path}...")
-        with HamiltonInterface(windowed=True, simulating=self.simulating, persistent=True) as ham_int:
-            create_liquid_class_from_json(ham_int, json_file_path)
-        print("Liquid classes imported successfully.")
 
     def tare_scale(self):
         """Tares the Mettler scale to zero and confirms."""
         print("Taring scale...")
         # USE THE CONTEXT MANAGER
-        with MettlerWXS(self.scale_com_port, simulating=self.simulating) as scale:
+        print("Opening scale connection...")
+        print(self.scale_com_port)
+        print(f"Simulating: {self.simulating}")
+        with MettlerWXS(self.scale_com_port, simulating=False) as scale:
             scale.tare(immediately=True)
         print("Scale tared.")
 
@@ -89,10 +83,23 @@ class LVKController:
         ...
         """
         # USE THE CONTEXT MANAGER
-        with MettlerWXS(self.scale_com_port, simulating=self.simulating) as scale:
-            weight = scale.get_weight(immediately=True)
-            print(f"Weight measured: {weight} g")
-            return weight
+        with MettlerWXS(self.scale_com_port, simulating=False) as scale:
+            while True:
+                weight = scale.get_weight(immediately=True)
+                if weight['status'] != 'stable':
+                    print("Weight unstable, retrying...")
+                    time.sleep(0.5)
+                    continue
+                else:
+                    print(f"Weight measured: {weight['value']} g")
+                    return weight
+        
+    def import_liquid_class_from_dictionary(self, liquid_class_dict):
+        with HamiltonInterface(windowed=True, simulating=False, persistent=True) as ham_int:
+            print("Liquid class dictionary")
+            print(liquid_class_dict)
+            create_liquid_class_from_dict(ham_int, liquid_class_dict) 
+            print(f"Liquid class imported from dictionary successfully.")
 
     def pipette_and_weigh(self, volume, liquid_class):
         """
@@ -105,7 +112,7 @@ class LVKController:
         Returns:
             float: The final weight recorded by the scale after dispensing.
         """
-        with HamiltonInterface(windowed=True, simulating=self.simulating, persistent=True) as ham_int:
+        with HamiltonInterface(windowed=True, simulating=False, persistent=True) as ham_int:
             print(f"Starting pipetting cycle: {volume}uL with liquid class '{liquid_class}'")
             self.tare_scale()
 
@@ -124,6 +131,64 @@ class LVKController:
             weight = self.get_scale_weight()
             print(f"Cycle complete. Final weight: {weight} g")
             return weight
+
+    def import_and_test_liquid_class(self, liquid_class_dict, volume):
+        """
+        Imports a liquid class from a dictionary, then immediately performs a 
+        pipetting and weighing cycle using that class and volume.
+
+        Args:
+            liquid_class_dict (list[dict]): Dictionary defining the liquid class(es).
+            volume (float): The volume to pipette in microliters.
+
+        Returns:
+            float: The final weight recorded by the scale after dispensing.
+        """
+        # 1. Parameter Validation (for internal use)
+        try:
+            # Assumes the dict is a list of one, and its name is the class being tested
+            liquid_class = liquid_class_dict[0]['name']
+        except (IndexError, TypeError, KeyError):
+            raise ValueError("Could not extract liquid class name from dictionary.")
+        
+        # 2. Combined Hamilton Interface Session
+        with HamiltonInterface(windowed=True, simulating=False, persistent=True) as ham_int:
+            normal_logging(ham_int, os.getcwd())
+            
+            # --- Import Liquid Class (Step 1) ---
+            print("\n--- Starting Liquid Class Import ---")
+            print("Liquid class dictionary:", liquid_class_dict)
+            
+            # NOTE: create_liquid_class_from_dict must accept a list of dicts or be adapted
+            create_liquid_class_from_dict(ham_int, liquid_class_dict) 
+            print(f"Liquid class '{liquid_class}' imported successfully.")
+            
+            # --- Pipette and Weigh (Step 2) ---
+            print(f"\n--- Starting Pipetting Cycle ---")
+            print(f"Pipetting cycle: {volume}uL with liquid class '{liquid_class}'")
+            
+            # a. Tare Scale
+            self.tare_scale() # self.tare_scale() must be adapted to use ham_int if needed
+
+            # b. Pipette Transfer
+            print(f"Aspirating and dispensing {volume}uL...")
+            pip_transfer(
+                ham_int,
+                self.tips,
+                self.source_position,
+                self.lvk_vial_position,
+                volumes=[volume],
+                liquid_class=liquid_class,
+                dispense_height=1,
+            )
+            print("Pipetting transfer complete.")
+
+            # c. Get Weight
+            weight = self.get_scale_weight() # self.get_scale_weight() must be adapted to use ham_int if needed
+            print(f"Cycle complete. Final weight: {weight} g")
+            
+            return weight
+
 
     def __enter__(self):
         """Context manager entry point: connects to the robot."""

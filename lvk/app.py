@@ -8,7 +8,8 @@ from sqlalchemy import text
 from urllib.parse import quote_plus
 from importlib import util
 from pyhamilton.defaults import defaults
-from pyhamilton.liquid_class_db import get_liquid_class_parameter, create_correction_curve, unpack_doubles_dynamic
+from pyhamilton.liquid_class_db import get_liquid_class_parameter, create_correction_curve, unpack_doubles_dynamic, DispenseMode
+from pyhamilton.ngs import get_last_usb_data_block
 
 from lvk_script import LVKController
 
@@ -184,16 +185,27 @@ def search_liquid_classes():
 @app.route('/get_liquid_class/<class_name>', methods=['GET'])
 def get_liquid_class(class_name):
     """
-    Get the full details of a specific liquid class by name.
+    Get the full details of a specific liquid class by name, converting
+    dispense mode code to a human-readable string.
     """
+    print(f"Get request for liquid class: '{class_name}'")  #
     if not LIQUID_CLASSES_CACHE:
         return jsonify({'error': 'No liquid classes loaded'}), 500
-    
+    print(f"Fetching details for liquid class: '{class_name}'")  # Debug log
     for lc in LIQUID_CLASSES_CACHE:
         if lc['LiquidClassName'] == class_name:
-            # We already unpacked the correction curve during loading, so just return the dict
+            # Convert dispense mode code to string
+            if 'DispenseMode' in lc:
+                code = lc['DispenseMode']
+                try:
+                    lc['DispenseMode'] = DispenseMode.from_code(code).value
+                except ValueError:
+                    lc['DispenseMode'] = code
+            
+            # Return the dict as JSON
+            print(f"Returning liquid class: {lc}")  # Debug log
             return jsonify(lc)
-    
+
     return jsonify({'error': 'Liquid class not found'}), 404
 
 @app.route('/test_liquid_classes', methods=['GET'])
@@ -274,43 +286,84 @@ def initialize_hamilton():
         print(f"Error during Hamilton initialization: {e}")
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-@app.route('/pipette_and_record', methods=['POST'])
-def pipette_and_record_endpoint():
+@app.route('/import_liquid_class', methods=['POST'])
+def import_liquid_class():
     """
-    Performs a pipetting and weighing cycle using the LVKController.
+    Imports liquid classes from a specified JSON file into the Hamilton robot.
     """
     # Assuming LVK_ROBOT is a global instance of LVKController
     if LVK_ROBOT is None:
         return jsonify({'status': 'error', 'message': 'LVKController not initialized'}), 500
 
     data = request.json
-    volume = data.get('volume')
-    liquid_class = data.get('liquid_class')
+    liquid_class_dict = data.get('liquid_class_dictionary')
 
-    if volume is None or liquid_class is None:
-        return jsonify({'error': 'Missing required parameters: volume, liquid_class'}), 400
+    if not liquid_class_dict:
+        return jsonify({'error': 'Invalid or missing liquid_class_dictionary'}), 400
 
     try:
-        # Ensure volume is a number
-        volume = float(volume)
-        
-        # Use the LVKController's pipette_and_weigh method
-        weight = LVK_ROBOT.pipette_and_weigh(volume, liquid_class)
-        
-        if weight is None:
-            return jsonify({'error': 'Failed to get weight from scale (Weight is None)'}), 500
-
-        # Include volume and liquid class in the response for clarity
-        return jsonify({'status': 'success', 'weight': weight, 'volume': volume, 'liquid_class': liquid_class}), 200
+        print("Importing liquid class dictionary:", liquid_class_dict)
+        LVK_ROBOT.import_liquid_class_from_dictionary(liquid_class_dict)
+        return jsonify({'status': 'success', 'message': f'Liquid class imported successfully.'}), 200
     except ConnectionError as e:
         # Indicate if the robot wasn't connected/initialized
         return jsonify({'status': 'error', 'message': f'Connection Error: {e}. Is the Hamilton initialized?'}), 500
-    except ValueError:
-        return jsonify({'error': 'Invalid volume: Must be a number'}), 400
-    except Exception as e:
-        print(f"Error during pipetting and recording: {e}")
-        return jsonify({'status': 'error', 'message': str(e)}), 500
 
+@app.route('/import_and_test_liquid_class', methods=['POST'])
+def import_and_test_liquid_class_endpoint():
+    """
+    Imports liquid classes and immediately performs a pipetting and weighing test.
+    """
+    # 1. Initialization Check
+    if LVK_ROBOT is None:
+        return jsonify({'status': 'error', 'message': 'LVKController not initialized'}), 500
+
+    data = request.json
+    liquid_class_dict = data.get('liquid_class_dictionary')
+    volume = data.get('volume')
+
+    # 2. Parameter Validation
+    if not liquid_class_dict or not isinstance(liquid_class_dict, list):
+        return jsonify({'error': 'Missing or invalid liquid_class_dictionary (must be a list)'}), 400
+    if volume is None:
+        return jsonify({'error': 'Missing required parameter: volume'}), 400
+    
+    try:
+        volume_float = float(volume)
+        liquid_class_name = liquid_class_dict[0]['name']
+    except (TypeError, ValueError, IndexError, KeyError) as e:
+        return jsonify({'error': f'Invalid volume format or missing liquid class name in dictionary: {e}'}), 400
+
+    # 3. Call the Combined LVKController Method
+    try:
+        weight = LVK_ROBOT.import_and_test_liquid_class(liquid_class_dict, volume_float)
+        
+        # Assuming this function call is still necessary/valid after the robot work
+        tadm_data = get_last_usb_data_block()['channels'] 
+
+        if weight is None:
+            return jsonify({'error': 'Failed to get weight from scale (Weight is None)'}), 500
+
+        # 4. Success Response
+        return jsonify({
+            'status': 'success',
+            'message': f'Liquid class "{liquid_class_name}" imported and test complete.',
+            'test_result': {
+                'weight': weight, 
+                'volume': volume_float, 
+                'liquid_class': liquid_class_name,
+                'tadm_data': tadm_data
+            }
+        }), 200
+
+    except ConnectionError as e:
+        return jsonify({'status': 'error', 'message': f'Connection Error: {e}. Is the Hamilton initialized?'}), 500
+    except ValueError as e:
+        # Handle the ValueError raised from within the LVKController method
+        return jsonify({'status': 'error', 'message': str(e)}), 400
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return jsonify({'status': 'error', 'message': f'An unexpected error occurred during test: {e}'}), 500
 
 
 if __name__ == '__main__':

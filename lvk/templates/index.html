@@ -139,19 +139,33 @@
                         <label for="DispenseMode" class="parameter-label block text-sm font-medium text-gray-700">Dispense Mode (Mode #)</label>
                         <select id="DispenseMode" name="DispenseMode" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border bg-white">
                             <option value="" disabled selected>Select a mode...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
+                            <option value="Jet">Jet</option>
+                            <option value="Surface">Surface</option>
+                            <option value="Jet Part">Jet Part</option>
+                            <option value="Surface Part">Surface Part</option>
+                            <option value="Jet Empty">Jet Empty</option>
+                            <option value="Surface Empty">Surface Empty</option>
                         </select>
 
                         <label for="TipType" class="parameter-label block text-sm font-medium text-gray-700">Tip Type</label>
                         <select id="TipType" name="TipType" class="input-field block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition duration-150 ease-in-out p-2 border bg-white">
                             <option value="" disabled selected>Select tip type...</option>
-                            <option value="1">Standard Volume</option>
-                            <option value="2">Low Volume</option>
-                            <option value="3">Filter</option>
+                            
+                            <!-- 10 µL -->
+                            <option value="10_no">10 µL - No Filter</option>
+                            <option value="10_yes">10 µL - Filter</option>
+                            
+                            <!-- 50 µL -->
+                            <option value="50_no">50 µL - No Filter</option>
+                            <option value="50_yes">50 µL - Filter</option>
+                            
+                            <!-- 300 µL -->
+                            <option value="300_no">300 µL - No Filter</option>
+                            <option value="300_yes">300 µL - Filter</option>
+                            
+                            <!-- 1000 µL -->
+                            <option value="1000_no">1000 µL - No Filter</option>
+                            <option value="1000_yes">1000 µL - Filter</option>
                         </select>
                     </div>
                 </div>
@@ -184,10 +198,6 @@
                 <div class="flex flex-col space-y-2">
                     <label for="test-volume" class="font-medium text-gray-700">Volume (uL)</label>
                     <input type="number" id="test-volume" name="test-volume" class="input-field p-2 border rounded-md" placeholder="Enter volume">
-                </div>
-                <div class="flex flex-col space-y-2">
-                    <label for="test-liquid-class" class="font-medium text-gray-700">Liquid Class</label>
-                    <input type="text" id="test-liquid-class" name="test-liquid-class" class="input-field p-2 border rounded-md" placeholder="e.g., Water Free, 500ul">
                 </div>
                 <div class="flex justify-between items-center pt-4">
                     <button id="initialize-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">Initialize</button>
@@ -260,6 +270,32 @@
                 addRowToTable(nominal, corrected);
             }
         }
+        
+        const TIP_TYPE_CONVERSION_MAP = {
+            // 10 uL
+            3: "10_no",     // uL_10
+            2: "10_yes",    // uL_10_with_filter
+            32: "10_no",    // uL_10_clear
+            
+            // 50 uL
+            23: "50_no",    // uL_50
+            22: "50_yes",   // uL_50_with_filter
+            31: "50_no",    // uL_50_clear
+            
+            // 300 uL
+            1: "300_no",    // uL_300 <--- This is the value you fetched!
+            0: "300_no",    // uL_300_base
+            30: "300_no",   // uL_300_clear
+            45: "300_yes",  // slim_core_300_with_filter (treated as 300 uL filter tip)
+
+            // 1000 uL
+            5: "1000_no",   // uL_1000
+            4: "1000_yes",  // uL_1000_with_filter
+
+            // Include other common volumes if needed, though they don't map cleanly to 4 options
+            // 15: "30_no", // uL_30_for_384 
+        };
+
 
         function parseAndSortCorrectionCurve(unpackedData) {
             if (!unpackedData) return [];
@@ -371,10 +407,29 @@
                 const paramName = input.name;
                 const dataKey = paramMap[paramName];
                 const value = data[dataKey];
+                
                 if (value !== undefined && value !== null) {
                     if (input.tagName === 'SELECT') {
-                        input.value = value.toString();
+                        if (paramName === 'TipType') {
+                            // ** TipType Conversion Logic **
+                            const intValue = parseInt(value, 10);
+                            const convertedValue = TIP_TYPE_CONVERSION_MAP[intValue];
+                            
+                            if (convertedValue) {
+                                console.log("Setting TipType select value:", convertedValue);
+                                input.value = convertedValue;
+                            } else {
+                                // Handle conversion for other select boxes if necessary, or default to original value
+                                console.log("TipType value not in map, setting original value:", value.toString());
+                                input.value = value.toString();
+                            }
+                        } else {
+                            // Other SELECT elements
+                            console.log("Setting select value:", value);
+                            input.value = value.toString();
+                        }
                     } else {
+                        // Non-SELECT elements
                         input.value = value.toFixed(2);
                     }
                     input.classList.remove('suggestion-text');
@@ -382,16 +437,16 @@
                     input.value = '';
                 }
             });
-
-            const correctionCurveData = data['CorrectionCurve'];
-            if (correctionCurveData) {
-                const sortedCurve = parseAndSortCorrectionCurve(correctionCurveData);
-                populateCorrectionTable(sortedCurve);
+        
+            if (data.CorrectionCurve) {
+                // The data.CorrectionCurve is assumed to be an array of
+                // [nominal, corrected, nominal, corrected, ...]
+                const curvePairs = parseAndSortCorrectionCurve(data.CorrectionCurve);
+                populateCorrectionTable(curvePairs);
             } else {
-                populateCorrectionTable([]);
-            }
-
-            handleInput();
+                // Clear the table if no correction curve data is present
+                correctionTableBody.innerHTML = '';
+            } 
         }
 
         // --- Original Event Listeners for Parameter Prediction ---
@@ -423,12 +478,79 @@
                 });
             }
         }
+
+        function buildLiquidClassDictFromForm() {
+            const liquidClassName = document.getElementById('new-liquid-class-name').value.trim();
+            if (!liquidClassName) return null;
+
+            // Aspirate
+            const aspirate = {
+                FLOW_RATE: parseFloat(document.getElementById('AsFlowRate').value) || 0,
+                MIX_FLOW_RATE: parseFloat(document.getElementById('AsMixFlowRate').value) || 0,
+                AIR_TRANSPORT_VOLUME: parseFloat(document.getElementById('AsAirTransportVolume').value) || 0,
+                BLOW_OUT_VOLUME: parseFloat(document.getElementById('AsBlowOutVolume').value) || 0,
+                SWAP_SPEED: parseFloat(document.getElementById('AsSwapSpeed').value) || 0,
+                SETTLING_TIME: parseFloat(document.getElementById('AsSettlingTime').value) || 0,
+                OVER_ASPIRATE_VOLUME: parseFloat(document.getElementById('AsOverAspirateVolume').value) || 0,
+                CLOT_RETRACT_HEIGHT: parseFloat(document.getElementById('AsClotRetractHeight').value) || 0,
+            };
+
+            // Dispense
+            const dispense = {
+                FLOW_RATE: parseFloat(document.getElementById('DsFlowRate').value) || 0,
+                MIX_FLOW_RATE: parseFloat(document.getElementById('DsMixFlowRate').value) || 0,
+                AIR_TRANSPORT_VOLUME: parseFloat(document.getElementById('DsAirTransportVolume').value) || 0,
+                BLOW_OUT_VOLUME: parseFloat(document.getElementById('DsBlowOutVolume').value) || 0,
+                SWAP_SPEED: parseFloat(document.getElementById('DsSwapSpeed').value) || 0,
+                SETTLING_TIME: parseFloat(document.getElementById('DsSettlingTime').value) || 0,
+                STOP_FLOW_RATE: parseFloat(document.getElementById('DsStopFlowRate').value) || 0,
+                STOP_BACK_VOLUME: parseFloat(document.getElementById('DsStopBackVolume').value) || 0,
+            };
+
+            // Tip
+            const tipTypeSelect = document.getElementById('TipType');
+            const tipTypeValue = tipTypeSelect.value; // e.g., "50_yes"
+
+            const [volumeStr, filterStr] = tipTypeValue.split('_');
+
+            const tip_type = {
+                volume: parseInt(volumeStr, 10),     // 10, 50, 300, 1000
+                has_filter: filterStr === "yes"      // true if filtered
+            };
+
+
+            // Dispense mode
+            const dispense_mode = document.getElementById('DispenseMode').value || "Surface Empty";
+
+            // Correction curve
+            const correction_curve = [];
+            const rows = document.querySelectorAll('#correction-table tbody tr');
+            rows.forEach(row => {
+                const nominal = parseFloat(row.cells[0].querySelector('input').value) || 0;
+                const corrected = parseFloat(row.cells[1].querySelector('input').value) || 0;
+                correction_curve.push({ nominal, corrected });
+            });
+
+            const nominalArray = correction_curve.map(r => r.nominal);
+            const correctedArray = correction_curve.map(r => r.corrected);
+
+            return [
+                {
+                    name: liquidClassName,
+                    aspirate,
+                    dispense,
+                    tip_type,
+                    dispense_mode,
+                    correction_curve: nominalArray.length ? { nominal: nominalArray, corrected: correctedArray } : undefined
+                }
+            ];
+        }
+
         
         // Get new test action elements
         const initializeBtn = document.getElementById('initialize-btn');
         const pipetteBtn = document.getElementById('pipette-btn');
         const testVolumeInput = document.getElementById('test-volume');
-        const testLiquidClassInput = document.getElementById('test-liquid-class');
         const outputMessage = document.getElementById('output-message');
 
         // Event listener for Initialize button
@@ -452,39 +574,62 @@
         });
 
         // Event listener for Pipette & Record button
-        pipetteBtn.addEventListener('click', async () => {
-            const volume = parseFloat(testVolumeInput.value);
-            const liquidClass = testLiquidClassInput.value.trim();
+    pipetteBtn.addEventListener('click', async () => {
+        const volume = parseFloat(testVolumeInput.value);
+        const liquidClassName = newLiquidClassNameInput.value.trim();
 
-            if (isNaN(volume) || !liquidClass) {
-                outputMessage.textContent = 'Please fill in all fields (Volume and Liquid Class) before pipetting.';
+        if (isNaN(volume) || !liquidClassName) {
+            outputMessage.textContent = 'Please fill in all fields (Volume and Liquid Class) before pipetting.';
+            return;
+        }
+
+        outputMessage.textContent = 'Importing liquid class and preparing to pipette... Please wait.';
+
+        // Step 1: Build the liquid class dictionary from the form
+        const liquidClassDict = buildLiquidClassDictFromForm();
+        if (!liquidClassDict) {
+            outputMessage.textContent = 'Please enter a name for the liquid class in the form.';
+            return;
+        }
+
+        try {
+            // Step 2: Import the liquid class
+            const importResponse = await fetch('/import_liquid_class', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ liquid_class_dictionary: liquidClassDict })
+            });
+
+            const importResult = await importResponse.json();
+            if (!importResponse.ok) {
+                outputMessage.textContent = `Liquid class import failed: ${importResult.message}`;
                 return;
             }
 
-            outputMessage.textContent = 'Pipetting and recording weight... Please wait.';
-            try {
-                const response = await fetch('/pipette_and_record', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        volume: volume,
-                        liquid_class: liquidClass
-                    })
-                });
+            outputMessage.textContent = 'Liquid class imported successfully. Pipetting now...';
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+            // Step 3: Pipette & record
+            const pipetteResponse = await fetch('/pipette_and_record', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    volume: volume,
+                    liquid_class: liquidClassName
+                })
+            });
 
-                const result = await response.json();
-                outputMessage.textContent = `Pipette complete. Recorded weight: ${result.weight} grams.`;
-            } catch (error) {
-                console.error('Pipette & Record failed:', error);
-                outputMessage.textContent = `Pipette & Record failed: ${error.message}`;
+            const pipetteResult = await pipetteResponse.json();
+            if (!pipetteResponse.ok) {
+                outputMessage.textContent = `Pipette & Record failed: ${pipetteResult.message}`;
+                return;
             }
-        });
+
+            outputMessage.textContent = `Pipette complete. Recorded weight: ${pipetteResult.weight} grams.`;
+        } catch (error) {
+            console.error('Pipette & Record failed:', error);
+            outputMessage.textContent = `Operation failed: ${error.message}`;
+        }
+    });
     </script>
 </body>
 </html>

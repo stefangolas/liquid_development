@@ -1,0 +1,366 @@
+[2025-10-04 23:27:47,789] root INFO ##################################################################################
+[2025-10-04 23:27:47,790] root INFO #                                                                                #
+[2025-10-04 23:27:47,790] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:27:47,790] root INFO #                                                                                #
+[2025-10-04 23:27:47,791] root INFO ##################################################################################
+[2025-10-04 23:27:47,794] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:27:47,795] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:27:47,798] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:27:56,002] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 1
+[2025-10-04 23:28:08,014] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:28:26,905] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:28:41,921] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:28:55,142] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:28:55] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:35:16,827] root INFO ##################################################################################
+[2025-10-04 23:35:16,827] root INFO #                                                                                #
+[2025-10-04 23:35:16,827] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:35:16,828] root INFO #                                                                                #
+[2025-10-04 23:35:16,828] root INFO ##################################################################################
+[2025-10-04 23:35:16,829] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:35:16,830] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:35:16,830] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:35:27,215] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 1
+[2025-10-04 23:37:05,056] root INFO ##################################################################################
+[2025-10-04 23:37:05,056] root INFO #                                                                                #
+[2025-10-04 23:37:05,056] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:37:05,056] root INFO #                                                                                #
+[2025-10-04 23:37:05,057] root INFO ##################################################################################
+[2025-10-04 23:37:05,057] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:37:05,058] pyhamilton.interface ERROR HamiltonTimeoutError('Timed out after 5 sec while waiting for response id 0x1cc5b1f90d47')
+[2025-10-04 23:37:05,059] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:37:05,059] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:37:28,041] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:37:28] "POST /initialize_hamilton HTTP/1.1" 200 -
+[2025-10-04 23:37:35,866] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 1
+[2025-10-04 23:37:44,872] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:38:02,601] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:38:17,614] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:38:30,725] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:38:30] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:38:33,798] root INFO ##################################################################################
+[2025-10-04 23:38:33,799] root INFO #                                                                                #
+[2025-10-04 23:38:33,799] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:38:33,799] root INFO #                                                                                #
+[2025-10-04 23:38:33,800] root INFO ##################################################################################
+[2025-10-04 23:38:33,802] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:38:33,802] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:38:33,803] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:38:40,137] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 2
+[2025-10-04 23:38:49,143] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:39:09,485] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:39:25,494] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:39:37,329] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:39:37] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:39:40,407] root INFO ##################################################################################
+[2025-10-04 23:39:40,407] root INFO #                                                                                #
+[2025-10-04 23:39:40,407] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:39:40,407] root INFO #                                                                                #
+[2025-10-04 23:39:40,407] root INFO ##################################################################################
+[2025-10-04 23:39:40,408] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:39:40,408] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:39:40,408] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:39:50,265] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 3
+[2025-10-04 23:39:59,277] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:40:17,581] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:40:33,596] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:40:44,820] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:40:44] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:40:47,897] root INFO ##################################################################################
+[2025-10-04 23:40:47,897] root INFO #                                                                                #
+[2025-10-04 23:40:47,897] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:40:47,897] root INFO #                                                                                #
+[2025-10-04 23:40:47,898] root INFO ##################################################################################
+[2025-10-04 23:40:47,898] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:40:47,898] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:40:47,899] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:40:57,647] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 4
+[2025-10-04 23:41:06,653] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:41:26,978] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:41:42,998] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:41:54,233] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:41:54] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:41:57,289] root INFO ##################################################################################
+[2025-10-04 23:41:57,289] root INFO #                                                                                #
+[2025-10-04 23:41:57,289] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:41:57,289] root INFO #                                                                                #
+[2025-10-04 23:41:57,289] root INFO ##################################################################################
+[2025-10-04 23:41:57,290] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:41:57,290] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:41:57,290] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:42:07,220] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 5
+[2025-10-04 23:42:16,236] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:42:34,664] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:42:47,672] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:42:57,905] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:42:57] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:43:00,974] root INFO ##################################################################################
+[2025-10-04 23:43:00,974] root INFO #                                                                                #
+[2025-10-04 23:43:00,974] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:43:00,974] root INFO #                                                                                #
+[2025-10-04 23:43:00,974] root INFO ##################################################################################
+[2025-10-04 23:43:00,975] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:43:00,975] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:43:00,975] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:43:10,756] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 6
+[2025-10-04 23:43:19,761] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:43:40,225] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:43:52,236] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:44:05,491] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:44:05] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:44:08,578] root INFO ##################################################################################
+[2025-10-04 23:44:08,579] root INFO #                                                                                #
+[2025-10-04 23:44:08,579] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:44:08,579] root INFO #                                                                                #
+[2025-10-04 23:44:08,579] root INFO ##################################################################################
+[2025-10-04 23:44:08,580] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:44:08,581] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:44:08,582] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:44:16,508] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 7
+[2025-10-04 23:44:25,515] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:45:25,902] pyhamilton.interface ERROR HamiltonTimeoutError('Timed out after 60 sec while waiting for response id 0x1cc5cc8c9909')
+[2025-10-04 23:45:25,903] pyhamilton.interface INFO sending end run command to simulator
+[2025-10-04 23:45:27,404] pyhamilton.interface ERROR HamiltonTimeoutError('Timed out after 1.5 sec while waiting for response id 0x0')
+[2025-10-04 23:45:27,406] pyhamilton.interface INFO HTTP server socket closed
+[2025-10-04 23:45:27,407] pyhamilton.interface INFO server thread exited successfully
+[2025-10-04 23:45:27,409] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:45:27] "[35m[1mPOST /import_and_test_liquid_class HTTP/1.1[0m" 500 -
+[2025-10-04 23:45:46,630] werkzeug INFO  * Detected change in 'C:\\Users\\stefan.golas\\liquid_development\\lvk\\client_example.py', reloading
+[2025-10-04 23:45:46,631] werkzeug INFO  * Detected change in 'C:\\Users\\stefan.golas\\liquid_development\\lvk\\client_example.py', reloading
+[2025-10-04 23:45:46,632] werkzeug INFO  * Detected change in 'C:\\Users\\stefan.golas\\liquid_development\\lvk\\client_example.py', reloading
+[2025-10-04 23:45:46,633] werkzeug INFO  * Detected change in 'C:\\Users\\stefan.golas\\liquid_development\\lvk\\client_example.py', reloading
+[2025-10-04 23:51:44,358] root INFO ##################################################################################
+[2025-10-04 23:51:44,359] root INFO #                                                                                #
+[2025-10-04 23:51:44,359] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:51:44,359] root INFO #                                                                                #
+[2025-10-04 23:51:44,360] root INFO ##################################################################################
+[2025-10-04 23:51:44,361] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:51:44,361] pyhamilton.interface ERROR HamiltonTimeoutError('Timed out after 5 sec while waiting for response id 0x1cc5e66257d2')
+[2025-10-04 23:51:44,361] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:51:44,362] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:52:07,556] pyhamilton.interface INFO sending end run command to simulator
+[2025-10-04 23:52:09,057] pyhamilton.interface ERROR HamiltonTimeoutError('Timed out after 1.5 sec while waiting for response id 0x0')
+[2025-10-04 23:52:09,059] pyhamilton.interface INFO HTTP server socket closed
+[2025-10-04 23:52:09,060] pyhamilton.interface INFO server thread exited successfully
+[2025-10-04 23:52:09,062] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:52:09] "[35m[1mPOST /import_and_test_liquid_class HTTP/1.1[0m" 500 -
+[2025-10-04 23:52:43,312] werkzeug INFO  * Detected change in 'C:\\Users\\stefan.golas\\liquid_development\\lvk\\client_example.py', reloading
+[2025-10-04 23:52:43,314] werkzeug INFO  * Detected change in 'C:\\Users\\stefan.golas\\liquid_development\\lvk\\client_example.py', reloading
+[2025-10-04 23:52:43,315] werkzeug INFO  * Detected change in 'C:\\Users\\stefan.golas\\liquid_development\\lvk\\client_example.py', reloading
+[2025-10-04 23:52:43,316] werkzeug INFO  * Detected change in 'C:\\Users\\stefan.golas\\liquid_development\\lvk\\client_example.py', reloading
+[2025-10-04 23:53:37,142] root INFO ##################################################################################
+[2025-10-04 23:53:37,143] root INFO #                                                                                #
+[2025-10-04 23:53:37,143] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:53:37,144] root INFO #                                                                                #
+[2025-10-04 23:53:37,144] root INFO ##################################################################################
+[2025-10-04 23:53:37,145] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:53:37,146] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:53:37,147] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:53:47,082] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 1
+[2025-10-04 23:53:56,090] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:54:13,901] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:54:28,915] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:54:41,232] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:54:41] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:54:44,302] root INFO ##################################################################################
+[2025-10-04 23:54:44,302] root INFO #                                                                                #
+[2025-10-04 23:54:44,303] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:54:44,303] root INFO #                                                                                #
+[2025-10-04 23:54:44,305] root INFO ##################################################################################
+[2025-10-04 23:54:44,306] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:54:44,307] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:54:44,309] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:54:57,534] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 2
+[2025-10-04 23:55:06,543] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:55:24,832] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:55:41,844] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:55:54,060] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:55:54] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:55:57,131] root INFO ##################################################################################
+[2025-10-04 23:55:57,131] root INFO #                                                                                #
+[2025-10-04 23:55:57,131] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:55:57,131] root INFO #                                                                                #
+[2025-10-04 23:55:57,131] root INFO ##################################################################################
+[2025-10-04 23:55:57,132] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:55:57,132] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:55:57,133] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:56:08,927] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 3
+[2025-10-04 23:56:17,933] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:56:36,227] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:56:53,249] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:57:05,478] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:57:05] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:57:08,546] root INFO ##################################################################################
+[2025-10-04 23:57:08,547] root INFO #                                                                                #
+[2025-10-04 23:57:08,547] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:57:08,547] root INFO #                                                                                #
+[2025-10-04 23:57:08,547] root INFO ##################################################################################
+[2025-10-04 23:57:08,548] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:57:08,548] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:57:08,548] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:57:20,310] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 4
+[2025-10-04 23:57:29,316] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:57:49,737] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:58:06,744] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:58:18,979] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:58:18] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:58:22,026] root INFO ##################################################################################
+[2025-10-04 23:58:22,026] root INFO #                                                                                #
+[2025-10-04 23:58:22,026] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:58:22,026] root INFO #                                                                                #
+[2025-10-04 23:58:22,026] root INFO ##################################################################################
+[2025-10-04 23:58:22,027] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:58:22,027] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:58:22,027] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:58:33,798] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 5
+[2025-10-04 23:58:42,807] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-04 23:59:01,240] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-04 23:59:14,249] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-04 23:59:24,473] werkzeug INFO 127.0.0.1 - - [04/Oct/2025 23:59:24] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-04 23:59:27,548] root INFO ##################################################################################
+[2025-10-04 23:59:27,548] root INFO #                                                                                #
+[2025-10-04 23:59:27,548] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-04 23:59:27,548] root INFO #                                                                                #
+[2025-10-04 23:59:27,548] root INFO ##################################################################################
+[2025-10-04 23:59:27,549] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-04 23:59:27,549] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-04 23:59:27,550] pyhamilton.interface INFO started the server thread
+[2025-10-04 23:59:40,374] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 6
+[2025-10-04 23:59:51,385] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:00:09,826] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:00:22,837] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:00:33,062] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:00:33] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:00:36,129] root INFO ##################################################################################
+[2025-10-05 00:00:36,129] root INFO #                                                                                #
+[2025-10-05 00:00:36,130] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-05 00:00:36,130] root INFO #                                                                                #
+[2025-10-05 00:00:36,130] root INFO ##################################################################################
+[2025-10-05 00:00:36,130] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-05 00:00:36,131] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-05 00:00:36,131] pyhamilton.interface INFO started the server thread
+[2025-10-05 00:00:48,065] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 7
+[2025-10-05 00:00:57,079] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:01:15,506] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:01:28,518] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:01:37,741] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:01:37] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:01:40,803] root INFO ##################################################################################
+[2025-10-05 00:01:40,803] root INFO #                                                                                #
+[2025-10-05 00:01:40,804] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-05 00:01:40,804] root INFO #                                                                                #
+[2025-10-05 00:01:40,804] root INFO ##################################################################################
+[2025-10-05 00:01:40,805] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-05 00:01:40,805] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-05 00:01:40,805] pyhamilton.interface INFO started the server thread
+[2025-10-05 00:01:54,704] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 8
+[2025-10-05 00:02:03,711] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:02:22,142] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:02:35,153] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:02:49,796] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:02:49] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:06:02,431] werkzeug INFO  * Detected change in 'C:\\Users\\stefan.golas\\liquid_development\\lvk\\plot_tests.py', reloading
+[2025-10-05 00:06:02,433] werkzeug INFO  * Detected change in 'C:\\Users\\stefan.golas\\liquid_development\\lvk\\plot_tests.py', reloading
+[2025-10-05 00:12:52,986] root INFO ##################################################################################
+[2025-10-05 00:12:52,986] root INFO #                                                                                #
+[2025-10-05 00:12:52,986] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-05 00:12:52,987] root INFO #                                                                                #
+[2025-10-05 00:12:52,987] root INFO ##################################################################################
+[2025-10-05 00:12:52,988] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-05 00:12:52,989] pyhamilton.interface ERROR HamiltonTimeoutError('Timed out after 5 sec while waiting for response id 0x1cc631ff9ef8')
+[2025-10-05 00:12:52,989] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-05 00:12:52,989] pyhamilton.interface INFO started the server thread
+[2025-10-05 00:12:58,142] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:12:58] "POST /initialize_hamilton HTTP/1.1" 200 -
+[2025-10-05 00:13:07,847] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 1
+[2025-10-05 00:13:16,854] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:13:37,675] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:13:50,686] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:14:02,965] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:14:02] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:14:06,048] root INFO ##################################################################################
+[2025-10-05 00:14:06,049] root INFO #                                                                                #
+[2025-10-05 00:14:06,049] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-05 00:14:06,049] root INFO #                                                                                #
+[2025-10-05 00:14:06,049] root INFO ##################################################################################
+[2025-10-05 00:14:06,050] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-05 00:14:06,050] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-05 00:14:06,050] pyhamilton.interface INFO started the server thread
+[2025-10-05 00:14:20,736] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 2
+[2025-10-05 00:14:29,744] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:14:49,539] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:15:06,556] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:15:18,811] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:15:18] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:15:21,895] root INFO ##################################################################################
+[2025-10-05 00:15:21,895] root INFO #                                                                                #
+[2025-10-05 00:15:21,896] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-05 00:15:21,896] root INFO #                                                                                #
+[2025-10-05 00:15:21,896] root INFO ##################################################################################
+[2025-10-05 00:15:21,898] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-05 00:15:21,898] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-05 00:15:21,899] pyhamilton.interface INFO started the server thread
+[2025-10-05 00:15:36,620] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 3
+[2025-10-05 00:15:45,627] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:16:05,354] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:16:21,377] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:16:33,619] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:16:33] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:16:36,710] root INFO ##################################################################################
+[2025-10-05 00:16:36,710] root INFO #                                                                                #
+[2025-10-05 00:16:36,710] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-05 00:16:36,710] root INFO #                                                                                #
+[2025-10-05 00:16:36,710] root INFO ##################################################################################
+[2025-10-05 00:16:36,710] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-05 00:16:36,711] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-05 00:16:36,711] pyhamilton.interface INFO started the server thread
+[2025-10-05 00:16:59,329] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 4
+[2025-10-05 00:17:11,337] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:17:31,079] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:17:48,093] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:18:01,542] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:18:01] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:18:04,602] root INFO ##################################################################################
+[2025-10-05 00:18:04,602] root INFO #                                                                                #
+[2025-10-05 00:18:04,603] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-05 00:18:04,603] root INFO #                                                                                #
+[2025-10-05 00:18:04,603] root INFO ##################################################################################
+[2025-10-05 00:18:04,603] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-05 00:18:04,604] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-05 00:18:04,604] pyhamilton.interface INFO started the server thread
+[2025-10-05 00:18:26,673] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 5
+[2025-10-05 00:18:36,678] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:18:56,952] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:19:15,977] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:19:30,609] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:19:30] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:19:33,663] root INFO ##################################################################################
+[2025-10-05 00:19:33,664] root INFO #                                                                                #
+[2025-10-05 00:19:33,664] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-05 00:19:33,664] root INFO #                                                                                #
+[2025-10-05 00:19:33,664] root INFO ##################################################################################
+[2025-10-05 00:19:33,664] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-05 00:19:33,664] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-05 00:19:33,664] pyhamilton.interface INFO started the server thread
+[2025-10-05 00:19:55,411] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 6
+[2025-10-05 00:20:05,418] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:20:26,729] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:20:43,742] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:20:56,582] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:20:56] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:20:59,653] root INFO ##################################################################################
+[2025-10-05 00:20:59,653] root INFO #                                                                                #
+[2025-10-05 00:20:59,654] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-05 00:20:59,654] root INFO #                                                                                #
+[2025-10-05 00:20:59,654] root INFO ##################################################################################
+[2025-10-05 00:20:59,654] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-05 00:20:59,654] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-05 00:20:59,654] pyhamilton.interface INFO started the server thread
+[2025-10-05 00:21:23,416] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 7
+[2025-10-05 00:21:33,424] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:21:55,882] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:22:14,919] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:22:27,147] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:22:27] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:22:30,222] root INFO ##################################################################################
+[2025-10-05 00:22:30,222] root INFO #                                                                                #
+[2025-10-05 00:22:30,222] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-05 00:22:30,222] root INFO #                                                                                #
+[2025-10-05 00:22:30,222] root INFO ##################################################################################
+[2025-10-05 00:22:30,223] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-05 00:22:30,223] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-05 00:22:30,223] pyhamilton.interface INFO started the server thread
+[2025-10-05 00:22:51,938] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 8
+[2025-10-05 00:23:01,950] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:23:27,242] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:23:45,261] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:23:57,486] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:23:57] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:24:00,550] root INFO ##################################################################################
+[2025-10-05 00:24:00,550] root INFO #                                                                                #
+[2025-10-05 00:24:00,550] root INFO #     Begin execution of C:\Users\stefan.golas\liquid_development\lvk\app.py     #
+[2025-10-05 00:24:00,550] root INFO #                                                                                #
+[2025-10-05 00:24:00,550] root INFO ##################################################################################
+[2025-10-05 00:24:00,551] pyhamilton.interface INFO starting a Hamilton interface
+[2025-10-05 00:24:00,551] pyhamilton.interface INFO started the oem application for simulation
+[2025-10-05 00:24:00,551] pyhamilton.interface INFO started the server thread
+[2025-10-05 00:24:27,526] pyhamilton.interface INFO tip_pick_up: Pick up tips at TIP_50uLF_L_0001, 9
+[2025-10-05 00:24:38,538] pyhamilton.interface INFO aspirate: Aspirate volumes [2.0] from positions [rgt_cont_60ml_BC_A00_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 0, 'liquidFollowing': False, 'capacitiveLLD': 1, 'aspirateMode': 0, 'submergeDepth': 2}
+[2025-10-05 00:25:02,235] pyhamilton.interface INFO dispense: Dispense volumes [2.0] into positions [LVK_BALANCE_VIAL_0001, 1] with extra options {'liquidClass': 'beepboop2', 'mixCycles': 0, 'mixVolume': 0, 'liquidHeight': 1, 'capacitiveLLD': 0, 'liquidFollowing': False}
+[2025-10-05 00:25:23,250] pyhamilton.interface INFO tip_eject: Eject tips to default waste
+[2025-10-05 00:25:40,085] werkzeug INFO 127.0.0.1 - - [05/Oct/2025 00:25:40] "POST /import_and_test_liquid_class HTTP/1.1" 200 -
+[2025-10-05 00:26:39,161] werkzeug INFO  * Detected change in 'C:\\Users\\stefan.golas\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\pyparsing\\core.py', reloading
